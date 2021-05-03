@@ -269,6 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aircraftMovement: {fileID: 537900184}
   blindArea: 0.1
+  aircraftShooter: {fileID: 1152059197}
 --- !u!4 &434229014
 Transform:
   m_ObjectHideFlags: 0
@@ -276,12 +277,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 434229012}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1463645859}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &537900184 stripped
 MonoBehaviour:
@@ -293,6 +294,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2e56136b9201e449b0f3e736d48c8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1152059197 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129690321830445348, guid: d2ba3f6c227c81249a1c423c29f586fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 582247478538815829}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7095c6836577c45b1d8b1f874ecb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1312306006
@@ -414,7 +427,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 434229014}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -530,7 +544,7 @@ PrefabInstance:
     - target: {fileID: 348438734076111972, guid: d2ba3f6c227c81249a1c423c29f586fb,
         type: 3}
       propertyPath: m_Name
-      value: Plane
+      value: Aircraft
       objectReference: {fileID: 0}
     - target: {fileID: 1125397988913952478, guid: d2ba3f6c227c81249a1c423c29f586fb,
         type: 3}
