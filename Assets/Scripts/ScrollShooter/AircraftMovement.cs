@@ -9,20 +9,20 @@ namespace ScrollShooter
         [SerializeField] private float slopeSpeed = 10;
         [SerializeField] private Vector2 fieldSize = new Vector2(4, 8);
 
-        private float _xMoving;
-        private float _yMoving;
+        private float xMoving;
+        private float yMoving;
 
-        private Quaternion _slope;
+        private Quaternion slope;
 
         public void HorizontalMoving(float value, float blindArea = 0)
         {
             ChangeTargetSlope(value);
-            CheckMovingValue(value, blindArea, out _xMoving);
+            CheckMovingValue(value, blindArea, out xMoving);
         }
 
         public void VerticalMoving(float value, float blindArea = 0)
         {
-            CheckMovingValue(value, blindArea, out _yMoving);
+            CheckMovingValue(value, blindArea, out yMoving);
         }
 
         private static void CheckMovingValue(float value, float blindArea, out float movingValue)
@@ -48,7 +48,7 @@ namespace ScrollShooter
 
         private void ChangeTargetSlope(float rotationValue)
         {
-            _slope = Quaternion.Euler(-Vector3.forward * (rotationValue * slopeScale));
+            slope = Quaternion.Euler(-Vector3.forward * (rotationValue * slopeScale));
         }
 
         private void Update()
@@ -61,7 +61,7 @@ namespace ScrollShooter
         {
             var position = transform.localPosition;
             var localPosition = position;
-            localPosition += new Vector3(_xMoving, 0, _yMoving) * (Time.deltaTime * speed);
+            localPosition += new Vector3(xMoving, 0, yMoving) * (Time.deltaTime * speed);
             localPosition = ReturnToField(localPosition, fieldSize);
             position = Vector3.MoveTowards(position, localPosition, Time.deltaTime * 100);
             transform.localPosition = position;
@@ -70,9 +70,9 @@ namespace ScrollShooter
         private void SlopeUpdate()
         {
             if (Mathf.Abs(transform.localPosition.x) >= fieldSize.x - fieldSize.x * 0.1f)
-                _slope = Quaternion.identity;
+                slope = Quaternion.identity;
 
-            transform.localRotation = Quaternion.Lerp(transform.localRotation, _slope, Time.deltaTime * slopeSpeed);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, slope, Time.deltaTime * slopeSpeed);
         }
     }
 }

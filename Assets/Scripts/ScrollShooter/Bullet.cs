@@ -20,6 +20,11 @@ namespace ScrollShooter
 
         private void OnCollisionEnter(Collision other)
         {
+            if (other.gameObject.GetComponent<Health>() != null)
+            {
+                other.gameObject.GetComponent<Health>().Decrease(10);
+            }
+            
             var transformThis = transform;
             Instantiate(explosion, transformThis.position, transformThis.rotation);
             Destroy(gameObject);

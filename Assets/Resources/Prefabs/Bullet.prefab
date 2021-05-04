@@ -4916,7 +4916,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   destroyDistance: 10
-  explose: {fileID: 5236348370943946690, guid: b4a23ed3b0426524189dfdd0bafc36a4, type: 3}
+  explosion: {fileID: 5236348370943946690, guid: b4a23ed3b0426524189dfdd0bafc36a4,
+    type: 3}
 --- !u!54 &7451337112009798244
 Rigidbody:
   m_ObjectHideFlags: 0
