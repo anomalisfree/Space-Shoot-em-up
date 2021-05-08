@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e06452d78779f740934d4042d1bb6cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 20
 --- !u!114 &1152059197 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7129690321830445348, guid: d2ba3f6c227c81249a1c423c29f586fb,
@@ -635,6 +635,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 790246351}
+  explosion: {fileID: 8630587811111311845, guid: 817aa53c4ac65cf4496a7831feb21563,
+    type: 3}
 --- !u!1001 &1996604938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -866,6 +868,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Aircraft
+      objectReference: {fileID: 0}
+    - target: {fileID: 348438734076111972, guid: d2ba3f6c227c81249a1c423c29f586fb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1125397988913952478, guid: d2ba3f6c227c81249a1c423c29f586fb,
         type: 3}
