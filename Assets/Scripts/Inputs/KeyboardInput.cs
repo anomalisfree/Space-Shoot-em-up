@@ -7,7 +7,7 @@ namespace Inputs
     {
         [SerializeField] private AircraftMovement aircraftMovement;
         [SerializeField] private float blindArea;
-        [SerializeField] private AircraftShooter aircraftShooter;
+        [SerializeField] private BulletShooter bulletShooter;
 
         private void Update()
         {
@@ -16,7 +16,7 @@ namespace Inputs
 
             if (Input.GetButtonDown("Fire1"))
             {
-                aircraftShooter.Shoot();
+                bulletShooter.Shoot();
             }
         }
     }
