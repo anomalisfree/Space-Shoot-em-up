@@ -15,7 +15,7 @@ namespace ScrollShooter
             SwitchAircraft(0);
         }
 
-        public void DestroyAircraft()
+        private void DestroyAircraft()
         {
             foreach (var aircraftBody in aircraftBodies)
             {
@@ -25,7 +25,7 @@ namespace ScrollShooter
             deadEffect.Play();
         }
 
-        public void SwitchAircraft(int num)
+        private void SwitchAircraft(int num)
         {
             for (var i = 0; i < aircraftBodies.Count; i++)
             {

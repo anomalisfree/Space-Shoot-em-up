@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ScrollShooter
@@ -8,11 +9,19 @@ namespace ScrollShooter
         [SerializeField] private Health health;
         [SerializeField] private GameObject explosion;
         [SerializeField] private BulletShooter bulletShooter;
-        [SerializeField] private float shootPeriod = 0.4f;
+        [SerializeField] private float shootPeriod;
+        [SerializeField] private List<Spike> spikes;
 
         private void Start()
         {
             health.HealthIsChanged += GetDamage;
+
+            foreach (var spike in spikes)
+            {
+                spike.SpikeActivated += DestroyEnemy;
+
+            }
+            
             StartCoroutine(Shooting());
         }
 
@@ -20,9 +29,14 @@ namespace ScrollShooter
         {
             if (healthValue <= 0)
             {
-                Instantiate(explosion, health.transform.position, Quaternion.identity);
-                Destroy(gameObject);
+                DestroyEnemy();
             }
+        }
+
+        private void DestroyEnemy()
+        {
+            Instantiate(explosion, health.transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
 
         private IEnumerator Shooting()

@@ -9700,7 +9700,7 @@ MonoBehaviour:
   - {fileID: 1100972737}
   bulletCreatorParticleSystems:
   - {fileID: 2426598525164853965}
-  bulletColor: {r: 0.1254902, g: 0.5568628, b: 0.86274517, a: 1}
+  bulletColor: {r: 0.1254902, g: 0.5529412, b: 0.86274517, a: 1}
 --- !u!1 &693176629190860468
 GameObject:
   m_ObjectHideFlags: 0
@@ -34084,6 +34084,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850855442680802908, guid: 24520e26dc1d152488a834c3bfee56fb,
+        type: 3}
+      propertyPath: moveWithTransform
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4850855442680802911, guid: 24520e26dc1d152488a834c3bfee56fb,
         type: 3}
