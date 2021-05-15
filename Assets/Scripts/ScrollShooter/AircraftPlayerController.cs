@@ -8,11 +8,22 @@ namespace ScrollShooter
         [SerializeField] private List<GameObject> aircraftBodies;
         [SerializeField] private List<Health> healths;
         [SerializeField] private ParticleSystem deadEffect;
+        [SerializeField] private AircraftHelper helper;
 
 
+        private readonly List<AircraftHelper> helpers = new List<AircraftHelper>();
+        
         private void Start()
         {
             SwitchAircraft(0);
+            
+            var rightHelper = Instantiate(helper);
+            rightHelper.Initialize(transform, HelperPosition.Right);
+            helpers.Add(rightHelper);
+            
+            var leftHelper = Instantiate(helper);
+            leftHelper.Initialize(transform, HelperPosition.Left);
+            helpers.Add(leftHelper);
         }
 
         private void DestroyAircraft()

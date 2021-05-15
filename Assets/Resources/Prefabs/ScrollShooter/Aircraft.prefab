@@ -9667,6 +9667,7 @@ MonoBehaviour:
   - {fileID: 1778079414698153602}
   - {fileID: 9018898380133972797}
   deadEffect: {fileID: 582247478088461376}
+  helper: {fileID: 3789052779717382349, guid: 60849770a426a114686be7af2ce7ee76, type: 3}
 --- !u!114 &537900184
 MonoBehaviour:
   m_ObjectHideFlags: 0
