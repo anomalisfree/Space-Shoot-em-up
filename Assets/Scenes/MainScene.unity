@@ -268,9 +268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e74b9735ba25a394487105756607ab05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aircraftMovement: {fileID: 537900184}
   blindArea: 0.1
-  bulletShooter: {fileID: 1152059197}
+  aircraftPlayerController: {fileID: 1219965041}
 --- !u!4 &434229014
 Transform:
   m_ObjectHideFlags: 0
@@ -285,18 +284,6 @@ Transform:
   m_Father: {fileID: 1463645859}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &537900184 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 537900184, guid: d2ba3f6c227c81249a1c423c29f586fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 582247478538815829}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2e56136b9201e449b0f3e736d48c8d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &788505119
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,16 +431,16 @@ MonoBehaviour:
     type: 3}
   randomColorMin: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 0}
   randomColorMax: {r: 0, g: 0, b: 0, a: 0}
---- !u!114 &1152059197 stripped
+--- !u!114 &1219965041 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7129690321830445348, guid: d2ba3f6c227c81249a1c423c29f586fb,
+  m_CorrespondingSourceObject: {fileID: 6394669934949400368, guid: d2ba3f6c227c81249a1c423c29f586fb,
     type: 3}
   m_PrefabInstance: {fileID: 582247478538815829}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a7095c6836577c45b1d8b1f874ecb77, type: 3}
+  m_Script: {fileID: 11500000, guid: fb965ddc99ccd724dabf3cd6a1ef82df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1238266430
@@ -739,11 +726,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Aircraft
-      objectReference: {fileID: 0}
-    - target: {fileID: 348438734076111972, guid: d2ba3f6c227c81249a1c423c29f586fb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1125397988913952478, guid: d2ba3f6c227c81249a1c423c29f586fb,
         type: 3}

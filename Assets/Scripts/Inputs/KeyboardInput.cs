@@ -5,18 +5,17 @@ namespace Inputs
 {
     public class KeyboardInput : MonoBehaviour
     {
-        [SerializeField] private AircraftMovement aircraftMovement;
         [SerializeField] private float blindArea;
-        [SerializeField] private BulletShooter bulletShooter;
+        [SerializeField] private AircraftPlayerController aircraftPlayerController;
 
         private void Update()
         {
-            aircraftMovement.HorizontalMoving(Input.GetAxis("Horizontal"), blindArea);
-            aircraftMovement.VerticalMoving(Input.GetAxis("Vertical"), blindArea);
+            aircraftPlayerController.Movement(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")),
+                blindArea);
 
             if (Input.GetButtonDown("Fire1"))
             {
-                bulletShooter.Shoot();
+                aircraftPlayerController.Shoot();
             }
         }
     }

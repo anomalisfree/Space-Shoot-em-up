@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ScrollShooter
@@ -15,12 +16,34 @@ namespace ScrollShooter
         [SerializeField] private float reaction = 40;
         [SerializeField] private float distanceToPivot = 1.5f;
         [SerializeField] private float rotationIntensity = 100;
+        [SerializeField] private BulletShooter bulletShooter;
+        [SerializeField] private Health health;
+        [SerializeField] private GameObject deadParticle;
+
+        public Action<AircraftHelper> IsDead;
 
         public void Initialize(Transform aircraftPivot, HelperPosition position)
         {
             pivot = aircraftPivot;
             helperPosition = position;
+            health.HealthIsChanged += CheckHealth;
         }
+
+        private void CheckHealth(int value)
+        {
+            if (value <= 0)
+            {
+                Dead();
+            }
+        }
+
+        public void Dead()
+        {
+            IsDead?.Invoke(this);
+            Instantiate(deadParticle, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+
         private void Update()
         {
             var pivotPosition = pivot.position;
@@ -39,6 +62,11 @@ namespace ScrollShooter
 
             transform.rotation =
                 Quaternion.Euler(new Vector3(0, 0, (thisPosition.x - positionTarget.x) * rotationIntensity));
+        }
+
+        public void Shoot()
+        {
+            bulletShooter.Shoot();
         }
     }
 }

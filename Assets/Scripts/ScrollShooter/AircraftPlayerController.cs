@@ -9,6 +9,8 @@ namespace ScrollShooter
         [SerializeField] private List<Health> healths;
         [SerializeField] private ParticleSystem deadEffect;
         [SerializeField] private AircraftHelper helper;
+        [SerializeField] private BulletShooter bulletShooter;
+        [SerializeField] private AircraftMovement aircraftMovement;
 
 
         private readonly List<AircraftHelper> helpers = new List<AircraftHelper>();
@@ -16,14 +18,27 @@ namespace ScrollShooter
         private void Start()
         {
             SwitchAircraft(0);
+            AddHelpers();
+        }
+
+        private void AddHelpers()
+        {
+            ClearHelpers();
             
             var rightHelper = Instantiate(helper);
             rightHelper.Initialize(transform, HelperPosition.Right);
+            rightHelper.IsDead += DestroyHelper;
             helpers.Add(rightHelper);
             
             var leftHelper = Instantiate(helper);
             leftHelper.Initialize(transform, HelperPosition.Left);
+            leftHelper.IsDead += DestroyHelper;
             helpers.Add(leftHelper);
+        }
+
+        private void DestroyHelper(AircraftHelper aircraftHelper)
+        {
+            helpers.Remove(aircraftHelper);
         }
 
         private void DestroyAircraft()
@@ -32,8 +47,19 @@ namespace ScrollShooter
             {
                 aircraftBody.SetActive(false);
             }
-            
+
+            ClearHelpers();
             deadEffect.Play();
+        }
+
+        private void ClearHelpers()
+        {
+            foreach (var aircraftHelper in helpers)
+            {
+                aircraftHelper.IsDead -= DestroyHelper;
+                aircraftHelper.Dead();
+            }
+            helpers.Clear();
         }
 
         private void SwitchAircraft(int num)
@@ -59,6 +85,22 @@ namespace ScrollShooter
             {
                 DestroyAircraft();
             }
+        }
+
+        public void Shoot()
+        {
+            bulletShooter.Shoot();
+            
+            foreach (var aircraftHelper in helpers)
+            {
+                aircraftHelper.Shoot();
+            }
+        }
+
+        public void Movement(Vector2 direction, float blindArea = 0)
+        {
+            aircraftMovement.HorizontalMoving(direction.x, blindArea);
+            aircraftMovement.VerticalMoving(direction.y, blindArea);
         }
     }
 }
