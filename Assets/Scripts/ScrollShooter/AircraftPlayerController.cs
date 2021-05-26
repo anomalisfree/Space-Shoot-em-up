@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ScrollShooter.Data;
 using UnityEngine;
 
 namespace ScrollShooter
@@ -11,14 +12,25 @@ namespace ScrollShooter
         [SerializeField] private AircraftHelper helper;
         [SerializeField] private BulletShooter bulletShooter;
         [SerializeField] private AircraftMovement aircraftMovement;
+        [SerializeField] private List<ItemCollector> itemCollectors;
 
 
         private readonly List<AircraftHelper> helpers = new List<AircraftHelper>();
         
         private void Start()
         {
+            foreach (var itemCollector in itemCollectors)
+            {
+                itemCollector.GETItemAction += GetItem;
+            }
+            
             SwitchAircraft(0);
             AddHelpers();
+        }
+
+        private void GetItem(ItemType itemType)
+        {
+            
         }
 
         private void AddHelpers()
