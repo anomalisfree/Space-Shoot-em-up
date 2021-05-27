@@ -1,14 +1,9 @@
 using System;
+using ScrollShooter.Data;
 using UnityEngine;
 
 namespace ScrollShooter
 {
-    public enum HelperPosition
-    {
-        Right,
-        Left
-    }
-    
     public class AircraftHelper : MonoBehaviour
     {
         [SerializeField] private Transform pivot;

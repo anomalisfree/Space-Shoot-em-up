@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ScrollShooter.Data;
+using ScrollShooter.ScriptableObjects;
 using UnityEngine;
 
 namespace ScrollShooter
@@ -13,9 +14,30 @@ namespace ScrollShooter
         [SerializeField] private BulletShooter bulletShooter;
         [SerializeField] private AircraftMovement aircraftMovement;
         [SerializeField] private List<ItemCollector> itemCollectors;
-
+        [SerializeField] private GameObject shield;
 
         private readonly List<AircraftHelper> helpers = new List<AircraftHelper>();
+        private float shieldTimer;
+        private bool inShield;
+        private int oldHealth;
+        private bool canShoot;
+        private float shieldTime;
+        
+        public void Initialize(AircraftParams aircraftParams)
+        {
+            oldHealth = aircraftParams.healthOnStart;
+            
+            foreach (var healthComponent in healths)
+            {
+                healthComponent.Set(oldHealth);
+            }
+
+            shieldTime = aircraftParams.shieldTime;
+            
+            aircraftMovement.Initialize(aircraftParams);
+            SwitchAircraft((int)aircraftParams.aircraftBody);
+            AddHelpers();
+        }
         
         private void Start()
         {
@@ -23,25 +45,53 @@ namespace ScrollShooter
             {
                 itemCollector.GETItemAction += GetItem;
             }
-            
-            SwitchAircraft(0);
-            AddHelpers();
+        }
+
+        private void Update()
+        {
+            UpdateShieldTimer();
+        }
+
+        private void UpdateShieldTimer()
+        {
+            if (!shield.activeSelf) return;
+
+            if (shieldTimer > 0)
+            {
+                shieldTimer -= Time.deltaTime;
+            }
+            else
+            {
+                shield.SetActive(false);
+                inShield = false;
+            }
         }
 
         private void GetItem(ItemType itemType)
         {
-            
+            switch (itemType)
+            {
+                case ItemType.Shield:
+                    shieldTimer = shieldTime;
+                    shield.SetActive(true);
+                    inShield = true;
+                    break;
+                case ItemType.Force:
+                    break;
+                case ItemType.Helpers:
+                    break;
+            }
         }
 
         private void AddHelpers()
         {
             ClearHelpers();
-            
+
             var rightHelper = Instantiate(helper);
             rightHelper.Initialize(transform, HelperPosition.Right);
             rightHelper.IsDead += DestroyHelper;
             helpers.Add(rightHelper);
-            
+
             var leftHelper = Instantiate(helper);
             leftHelper.Initialize(transform, HelperPosition.Left);
             leftHelper.IsDead += DestroyHelper;
@@ -60,6 +110,7 @@ namespace ScrollShooter
                 aircraftBody.SetActive(false);
             }
 
+            canShoot = false;
             ClearHelpers();
             deadEffect.Play();
         }
@@ -71,11 +122,14 @@ namespace ScrollShooter
                 aircraftHelper.IsDead -= DestroyHelper;
                 aircraftHelper.Dead();
             }
+
             helpers.Clear();
         }
 
         private void SwitchAircraft(int num)
         {
+            canShoot = true;
+            
             for (var i = 0; i < aircraftBodies.Count; i++)
             {
                 aircraftBodies[i].SetActive(i == num);
@@ -93,7 +147,17 @@ namespace ScrollShooter
 
         private void HealthIsChanged(int health)
         {
-            if (health <= 0)
+            if (!inShield)
+            {
+                oldHealth = health;
+            }
+
+            foreach (var healthComponent in healths)
+            {
+                healthComponent.Set(oldHealth);
+            }
+
+            if (oldHealth <= 0)
             {
                 DestroyAircraft();
             }
@@ -101,8 +165,10 @@ namespace ScrollShooter
 
         public void Shoot()
         {
-            bulletShooter.Shoot();
+            if (!canShoot) return;
             
+            bulletShooter.Shoot();
+
             foreach (var aircraftHelper in helpers)
             {
                 aircraftHelper.Shoot();

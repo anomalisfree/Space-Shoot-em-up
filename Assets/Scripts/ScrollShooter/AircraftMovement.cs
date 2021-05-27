@@ -1,19 +1,29 @@
+using ScrollShooter.ScriptableObjects;
 using UnityEngine;
 
 namespace ScrollShooter
 {
     public class AircraftMovement : MonoBehaviour
     {
-        [SerializeField] private float speed = 10;
-        [SerializeField] private float slopeScale = 20;
-        [SerializeField] private float slopeSpeed = 10;
-        [SerializeField] private Vector2 fieldSize = new Vector2(4, 8);
+        private float speed;
+        private float slopeScale;
+        private float slopeSpeed;
+        private Vector2 fieldSize;
 
         private float xMoving;
         private float yMoving;
 
         private Quaternion slope;
 
+        public void Initialize(AircraftParams aircraftParams)
+        {
+            speed = aircraftParams.speed;
+            slopeScale = aircraftParams.slopeScale;
+            slopeSpeed = aircraftParams.slopeSpeed;
+            fieldSize = aircraftParams.fieldSize;
+            transform.localPosition = aircraftParams.startPose;
+        }
+        
         public void HorizontalMoving(float value, float blindArea = 0)
         {
             ChangeTargetSlope(value);

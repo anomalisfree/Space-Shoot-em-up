@@ -9669,6 +9669,11 @@ MonoBehaviour:
   helper: {fileID: 3789052779717382349, guid: 60849770a426a114686be7af2ce7ee76, type: 3}
   bulletShooter: {fileID: 7129690321830445348}
   aircraftMovement: {fileID: 537900184}
+  itemCollectors:
+  - {fileID: 4447732815980897215}
+  - {fileID: 5535703068448458863}
+  - {fileID: 7110719997054084551}
+  shield: {fileID: 4868504713205995773}
 --- !u!114 &537900184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43802,7 +43807,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &571398259699517318
 Transform:
   m_ObjectHideFlags: 0

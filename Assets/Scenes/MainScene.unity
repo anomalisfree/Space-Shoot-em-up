@@ -479,9 +479,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08cce7381b1f8640988671e05a3ae6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aircraftParams: {fileID: 11400000, guid: 445b223dc426c8847a82f33af06a6149, type: 2}
+  aircraftPlayerController: {fileID: 1219965041}
+  field: {fileID: 296607023}
   ufoPrefab: {fileID: 8450153018024387432, guid: 3a176efb2fae16f47a3907fde3e65a67,
     type: 3}
-  field: {fileID: 296607023}
 --- !u!4 &1238266432
 Transform:
   m_ObjectHideFlags: 0
