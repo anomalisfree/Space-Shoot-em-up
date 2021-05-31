@@ -15,35 +15,39 @@ namespace ScrollShooter
         [SerializeField] private AircraftMovement aircraftMovement;
         [SerializeField] private List<ItemCollector> itemCollectors;
         [SerializeField] private GameObject shield;
+        
+        [SerializeField] private List<Transform> bulletCreatorsLowGroup;
+        [SerializeField] private List<Transform> bulletCreatorsMediumGroup;
 
         private readonly List<AircraftHelper> helpers = new List<AircraftHelper>();
+        private AircraftParams aircraftParams;
         private float shieldTimer;
         private bool inShield;
         private int oldHealth;
         private bool canShoot;
         private float shieldTime;
         
-        public void Initialize(AircraftParams aircraftParams)
+        public void Initialize(AircraftParams aircraftData)
         {
-            oldHealth = aircraftParams.healthOnStart;
+            aircraftParams = aircraftData;
+            oldHealth = aircraftData.healthOnStart;
             
             foreach (var healthComponent in healths)
             {
                 healthComponent.Set(oldHealth);
             }
 
-            shieldTime = aircraftParams.shieldTime;
+            shieldTime = aircraftData.shieldTime;
             
-            aircraftMovement.Initialize(aircraftParams);
-            SwitchAircraft((int)aircraftParams.aircraftBody);
-            AddHelpers();
+            aircraftMovement.Initialize(aircraftData);
+            SwitchAircraft((int)aircraftData.aircraftBody);
         }
         
         private void Start()
         {
             foreach (var itemCollector in itemCollectors)
             {
-                itemCollector.GETItemAction += GetItem;
+                itemCollector.GETPowerUpAction += GetPowerUp;
             }
         }
 
@@ -67,18 +71,20 @@ namespace ScrollShooter
             }
         }
 
-        private void GetItem(ItemType itemType)
+        private void GetPowerUp(PowerUpType powerUpType)
         {
-            switch (itemType)
+            switch (powerUpType)
             {
-                case ItemType.Shield:
+                case PowerUpType.Shield:
                     shieldTimer = shieldTime;
                     shield.SetActive(true);
                     inShield = true;
                     break;
-                case ItemType.Force:
+                case PowerUpType.Force:
+                    bulletShooter.UpdateBulletCreatorsGroup(bulletCreatorsMediumGroup);
                     break;
-                case ItemType.Helpers:
+                case PowerUpType.Helpers:
+                    AddHelpers();
                     break;
             }
         }
@@ -88,12 +94,12 @@ namespace ScrollShooter
             ClearHelpers();
 
             var rightHelper = Instantiate(helper);
-            rightHelper.Initialize(transform, HelperPosition.Right);
+            rightHelper.Initialize(transform, HelperPosition.Right, aircraftParams);
             rightHelper.IsDead += DestroyHelper;
             helpers.Add(rightHelper);
 
             var leftHelper = Instantiate(helper);
-            leftHelper.Initialize(transform, HelperPosition.Left);
+            leftHelper.Initialize(transform, HelperPosition.Left, aircraftParams);
             leftHelper.IsDead += DestroyHelper;
             helpers.Add(leftHelper);
         }
@@ -105,6 +111,8 @@ namespace ScrollShooter
 
         private void DestroyAircraft()
         {
+            bulletShooter.UpdateBulletCreatorsGroup(bulletCreatorsLowGroup);
+            
             foreach (var aircraftBody in aircraftBodies)
             {
                 aircraftBody.SetActive(false);

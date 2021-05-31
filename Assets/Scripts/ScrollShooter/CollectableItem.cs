@@ -5,7 +5,7 @@ namespace ScrollShooter
 {
     public class CollectableItem : MonoBehaviour
     {
-        [SerializeField] private ItemType itemType;
+        [SerializeField] private PowerUpType powerUpType;
         [SerializeField] private GameObject collectParticleSystem;
         private void OnTriggerEnter(Collider other)
         {
@@ -13,7 +13,7 @@ namespace ScrollShooter
             
             if (itemCollector == null) return;
             
-            itemCollector.GetItem(itemType);
+            itemCollector.GetItem(powerUpType);
             Instantiate(collectParticleSystem, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

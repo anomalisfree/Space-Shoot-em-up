@@ -9674,6 +9674,12 @@ MonoBehaviour:
   - {fileID: 5535703068448458863}
   - {fileID: 7110719997054084551}
   shield: {fileID: 4868504713205995773}
+  bulletCreatorsLowGroup:
+  - {fileID: 1100972737}
+  bulletCreatorsMediumGroup:
+  - {fileID: 1100972737}
+  - {fileID: 8666652484192284493}
+  - {fileID: 7580183214843088806}
 --- !u!114 &537900184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9686,10 +9692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e56136b9201e449b0f3e736d48c8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  slopeScale: 20
-  slopeSpeed: 10
-  fieldSize: {x: 4, y: 8}
 --- !u!114 &7129690321830445348
 MonoBehaviour:
   m_ObjectHideFlags: 0

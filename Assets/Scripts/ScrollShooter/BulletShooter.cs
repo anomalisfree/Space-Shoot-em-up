@@ -27,5 +27,10 @@ namespace ScrollShooter
                 bulletCreatorParticleSystem.Play();
             }
         }
+
+        public void UpdateBulletCreatorsGroup(List<Transform> bulletCreatorsGroup)
+        {
+            bulletCreators = bulletCreatorsGroup;
+        }
     }
 }

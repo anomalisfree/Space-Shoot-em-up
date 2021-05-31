@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthOnStart: 100
   startPose: {x: 0, y: 0, z: 0}
+  aircraftBody: 0
   speed: 10
   slopeScale: 20
   slopeSpeed: 10
   fieldSize: {x: 4, y: 8}
   shieldTime: 15
+  helperReaction: 40
+  helperDistanceToPivot: 1.5
+  helperRotationIntensity: 100

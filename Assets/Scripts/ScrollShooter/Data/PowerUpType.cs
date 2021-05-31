@@ -1,6 +1,6 @@
 namespace ScrollShooter.Data
 {
-    public enum ItemType
+    public enum PowerUpType
     {
         Shield,
         Force,

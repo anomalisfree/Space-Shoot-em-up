@@ -6,10 +6,10 @@ namespace ScrollShooter
 {
     public class ItemCollector : MonoBehaviour
     {
-        public Action<ItemType> GETItemAction;
-        public void GetItem(ItemType itemType)
+        public Action<PowerUpType> GETPowerUpAction;
+        public void GetItem(PowerUpType powerUpType)
         {
-            GETItemAction?.Invoke(itemType);
+            GETPowerUpAction?.Invoke(powerUpType);
         }
     }
 }

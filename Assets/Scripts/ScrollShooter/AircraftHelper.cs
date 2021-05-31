@@ -1,26 +1,31 @@
 using System;
 using ScrollShooter.Data;
+using ScrollShooter.ScriptableObjects;
 using UnityEngine;
 
 namespace ScrollShooter
 {
     public class AircraftHelper : MonoBehaviour
     {
-        [SerializeField] private Transform pivot;
         [SerializeField] private HelperPosition helperPosition;
-        [SerializeField] private float reaction = 40;
-        [SerializeField] private float distanceToPivot = 1.5f;
-        [SerializeField] private float rotationIntensity = 100;
         [SerializeField] private BulletShooter bulletShooter;
         [SerializeField] private Health health;
         [SerializeField] private GameObject deadParticle;
 
         public Action<AircraftHelper> IsDead;
+        private Transform pivot;
+        private float reaction;
+        private float distanceToPivot;
+        private float rotationIntensity;
 
-        public void Initialize(Transform aircraftPivot, HelperPosition position)
+        public void Initialize(Transform aircraftPivot, HelperPosition position, AircraftParams aircraftParams)
         {
             pivot = aircraftPivot;
+            transform.position = aircraftPivot.position;
             helperPosition = position;
+            reaction = aircraftParams.helperReaction;
+            distanceToPivot = aircraftParams.helperDistanceToPivot;
+            rotationIntensity = aircraftParams.helperRotationIntensity;
             health.HealthIsChanged += CheckHealth;
         }
 
