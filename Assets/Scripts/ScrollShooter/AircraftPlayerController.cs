@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ScrollShooter.Data;
+using ScrollShooter.Effects;
 using ScrollShooter.ScriptableObjects;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace ScrollShooter
         [SerializeField] private List<GameObject> aircraftBodies;
         [SerializeField] private List<Health> healths;
         [SerializeField] private ParticleSystem deadEffect;
+        [SerializeField] private EnvironmentDistortion environmentDistortion;
         [SerializeField] private AircraftHelper helper;
         [SerializeField] private BulletShooter bulletShooter;
         [SerializeField] private AircraftMovement aircraftMovement;
@@ -112,7 +114,7 @@ namespace ScrollShooter
         private void DestroyAircraft()
         {
             bulletShooter.UpdateBulletCreatorsGroup(bulletCreatorsLowGroup);
-            
+
             foreach (var aircraftBody in aircraftBodies)
             {
                 aircraftBody.SetActive(false);
@@ -121,6 +123,7 @@ namespace ScrollShooter
             canShoot = false;
             ClearHelpers();
             deadEffect.Play();
+            Instantiate(environmentDistortion, transform.position, Quaternion.identity).Initialize(3);
         }
 
         private void ClearHelpers()

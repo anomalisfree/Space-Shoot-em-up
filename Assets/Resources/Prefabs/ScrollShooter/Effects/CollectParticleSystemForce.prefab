@@ -4824,6 +4824,7 @@ GameObject:
   - component: {fileID: 3464553055990132097}
   - component: {fileID: 3464553055990132096}
   - component: {fileID: 3464553055990132127}
+  - component: {fileID: 4753822900258188442}
   m_Layer: 0
   m_Name: CollectParticleSystemForce
   m_TagString: Untagged
@@ -4862,7 +4863,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -9627,3 +9628,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &4753822900258188442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3464553055990132126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ce75a1c47d7334dbb0c32132e8c87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  environmentDistortion: {fileID: 297019505096413408, guid: 1475502a5638c894b9356fd3414d507e,
+    type: 3}
+  scale: 1

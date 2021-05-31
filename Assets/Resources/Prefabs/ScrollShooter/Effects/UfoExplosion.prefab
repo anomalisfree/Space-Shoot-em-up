@@ -14423,6 +14423,7 @@ GameObject:
   - component: {fileID: 7015437308108516986}
   - component: {fileID: 7867518316246734417}
   - component: {fileID: 7488676985557815786}
+  - component: {fileID: -8572571239439380088}
   m_Layer: 6
   m_Name: UfoExplosion
   m_TagString: Untagged
@@ -14463,7 +14464,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -19219,3 +19220,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-8572571239439380088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630587811111311845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ce75a1c47d7334dbb0c32132e8c87d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  environmentDistortion: {fileID: 297019505096413408, guid: 1475502a5638c894b9356fd3414d507e,
+    type: 3}
+  scale: 2
