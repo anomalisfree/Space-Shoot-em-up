@@ -19234,4 +19234,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   environmentDistortion: {fileID: 297019505096413408, guid: 1475502a5638c894b9356fd3414d507e,
     type: 3}
-  scale: 2
+  scale: 1.5

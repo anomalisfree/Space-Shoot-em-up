@@ -21,7 +21,7 @@ namespace ScrollShooter
         {
             yield return new WaitForSeconds(3f);
             
-            var count = 3;
+            var count = 5;
             while (count > 0)
             {
                 yield return new WaitForSeconds(0.3f);
