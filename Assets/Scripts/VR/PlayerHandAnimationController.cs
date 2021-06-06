@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.XR.Oculus;
 using UnityEngine;
 using UnityEngine.XR;
@@ -43,6 +44,7 @@ namespace VR
         private float lastPinch;
 
         private InputDevice device;
+        private Transform parent;
 
         private void Start()
         {
@@ -51,6 +53,7 @@ namespace VR
             animParamIndexFlex = Animator.StringToHash(AnimParamNameFlex);
             animParamIndexPose = Animator.StringToHash(AnimParamNamePose);
             animParamIndexPinch = Animator.StringToHash(AnimParamNamePinch);
+            parent = transform.parent;
         }
 
         private void Update()
@@ -126,7 +129,7 @@ namespace VR
 
         private void UpdateVibration()
         {
-            var vibrationForce = Vector3.Distance(Vector3.zero, transform.localPosition) * vibrationMultiplier;
+            var vibrationForce = Vector3.Distance(transform.position, parent.position) * vibrationMultiplier;
 
             if (vibrationForce > vibrationMax)
                 vibrationForce = vibrationMax;
@@ -139,6 +142,24 @@ namespace VR
             var rateDelta = Time.deltaTime * InputRateChange;
             var sign = isDown ? 1.0f : -1.0f;
             return Mathf.Clamp01(value + rateDelta * sign);
+        }
+
+        public XRNodeState GetState()
+        {
+            var nodes = new List<XRNodeState>();
+            InputTracking.GetNodeStates (nodes);
+
+            foreach (var node in nodes.Where(node => node.nodeType == deviceType))
+            {
+                return node;
+            }
+
+            return default;
+        }
+
+        public Transform GetParent()
+        {
+            return parent;
         }
     }
 }
