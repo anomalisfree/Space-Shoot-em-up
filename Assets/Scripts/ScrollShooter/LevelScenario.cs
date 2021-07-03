@@ -19,12 +19,12 @@ namespace ScrollShooter
 
         private IEnumerator UFOWaveOne()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
             
             var count = 5;
             while (count > 0)
             {
-                yield return new WaitForSeconds(0.3f);
+                yield return new WaitForSeconds(0.4f);
                 Instantiate(ufoPrefab, field);
                 count--;
             }

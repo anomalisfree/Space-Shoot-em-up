@@ -21,5 +21,5 @@ MonoBehaviour:
   fieldSize: {x: 4, y: 8}
   shieldTime: 15
   helperReaction: 40
-  helperDistanceToPivot: 1.5
+  helperDistanceToPivot: 0.15
   helperRotationIntensity: 100
