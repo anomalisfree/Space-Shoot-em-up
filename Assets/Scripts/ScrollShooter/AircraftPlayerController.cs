@@ -123,7 +123,7 @@ namespace ScrollShooter
             canShoot = false;
             ClearHelpers();
             deadEffect.Play();
-            //Instantiate(environmentDistortion, transform.position, Quaternion.identity).Initialize(3);
+            Instantiate(environmentDistortion, transform.position, Quaternion.identity).Initialize(3);
         }
 
         private void ClearHelpers()

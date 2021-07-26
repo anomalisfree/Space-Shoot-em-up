@@ -35,7 +35,7 @@ namespace ScrollShooter
 
         private void DestroyEnemy()
         {
-            Instantiate(explosion, health.transform.position, health.transform.rotation);
+            Instantiate(explosion, health.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 

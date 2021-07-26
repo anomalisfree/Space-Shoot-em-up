@@ -60,10 +60,8 @@ namespace ScrollShooter
             transform.position = Vector3.Lerp(thisPosition, positionTarget,
                 Time.deltaTime * reaction);
 
-            // transform.rotation =
-            //     Quaternion.Euler(new Vector3(0, 0, (thisPosition.x - positionTarget.x) * rotationIntensity));
-
-            transform.rotation = pivot.rotation;
+            transform.rotation =
+                Quaternion.Euler(new Vector3(0, 0, (thisPosition.x - positionTarget.x) * rotationIntensity));
         }
 
         public void Shoot()
