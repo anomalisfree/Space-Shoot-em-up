@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: ca33f1615f61d8e45985872c938a1dcf,
     type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 8db703578a6a7c54faf19b3065c69d15,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 3c72f420a689aba42880e6fd055beffd,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -381,6 +381,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table
       objectReference: {fileID: 0}
+    - target: {fileID: 4594179278562821800, guid: 5f021363c821fc34db18af2421c0d4bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f021363c821fc34db18af2421c0d4bd, type: 3}
 --- !u!1001 &5800517649643448897
@@ -639,6 +644,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.30181184
+      objectReference: {fileID: 0}
+    - target: {fileID: 5800517648586530612, guid: d78e84a5b2f2630418e541be56e83188,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5800517648717858252, guid: d78e84a5b2f2630418e541be56e83188,
         type: 3}
