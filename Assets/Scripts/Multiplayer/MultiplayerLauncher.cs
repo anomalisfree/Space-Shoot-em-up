@@ -43,6 +43,7 @@ namespace Multiplayer
         
         [Header("Saved params")] 
         [SerializeField] private string nicknameParam = "playerName";
+        [SerializeField] private string levelToPlay = "PlayLevel";
 
         public static MultiplayerLauncher Instance;
 
@@ -92,6 +93,7 @@ namespace Multiplayer
             CloseMenus();
             ShowLoadingMenu("Joining lobby...");
             PhotonNetwork.JoinLobby();
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
 
         public override void OnJoinedLobby()
@@ -244,6 +246,11 @@ namespace Multiplayer
             ShowLoadingMenu("Joining room...");
         }
 
+        public void StartGame()
+        {
+            PhotonNetwork.LoadLevel(levelToPlay);
+        }
+        
         public void QuitGame()
         {
             Application.Quit();
