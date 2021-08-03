@@ -11252,7 +11252,7 @@ GameObject:
   - component: {fileID: 7723600481714074457}
   - component: {fileID: 7723600481714074462}
   m_Layer: 5
-  m_Name: Clear All
+  m_Name: Shift
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11347,7 +11347,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7723600479646139626}
         m_TargetAssemblyTypeName: VR.UI.KeyboardVR, Assembly-CSharp
-        m_MethodName: ClearAll
+        m_MethodName: Shift
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

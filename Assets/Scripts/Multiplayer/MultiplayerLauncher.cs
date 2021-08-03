@@ -35,6 +35,14 @@ namespace Multiplayer
         [SerializeField] private RoomButton roomButton;
         [SerializeField] private Transform roomButtonsContent;
         private readonly List<RoomButton> allRoomButtons = new List<RoomButton>();
+        
+        [Header("Input Name screen")] 
+        [SerializeField] private GameObject inputNameScreen;
+        [SerializeField] private TextMeshProUGUI nameInputField;
+        private bool hasSatNickname;
+        
+        [Header("Saved params")] 
+        [SerializeField] private string nicknameParam = "playerName";
 
         public static MultiplayerLauncher Instance;
 
@@ -58,6 +66,7 @@ namespace Multiplayer
             roomScreen.SetActive(false);
             errorScreen.SetActive(false);
             roomBrowserScreen.SetActive(false);
+            inputNameScreen.SetActive(false);
         }
 
         private void ShowMainMenu()
@@ -87,11 +96,33 @@ namespace Multiplayer
 
         public override void OnJoinedLobby()
         {
-            ShowMainMenu();
+            if (!hasSatNickname)
+            {
+                CloseMenus();
+                inputNameScreen.SetActive(true);
 
-            PhotonNetwork.NickName = Random.Range(0, 1000).ToString();
+                if (PlayerPrefs.HasKey(nicknameParam))
+                {
+                    nameInputField.text = PlayerPrefs.GetString(nicknameParam);
+                }
+            }
+            else
+            {
+                ShowMainMenu();
+            }
         }
 
+        public void SetNickname()
+        {
+            if (!string.IsNullOrEmpty(nameInputField.text))
+            {
+                PhotonNetwork.NickName = nameInputField.text;
+                PlayerPrefs.SetString(nicknameParam, nameInputField.text);
+                hasSatNickname = true;
+                ShowMainMenu();
+            }
+        }
+        
         public void OpenRoomCreateScreen()
         {
             CloseMenus();

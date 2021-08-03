@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -63,7 +64,10 @@ namespace VR.UI
             {
                 textMeshPro.text = text;
             }
+        }
 
+        private void Update()
+        {
             title.SetActive(textMeshPro.text.Length <= 0);
         }
     }
