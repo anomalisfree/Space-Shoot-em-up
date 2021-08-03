@@ -10,6 +10,7 @@ namespace Multiplayer
     {
         [Header("Main menu")] 
         [SerializeField] private GameObject mainMenu;
+        [SerializeField] private GameObject testRoomButton;
 
         [Header("Loading screen")] 
         [SerializeField] private GameObject loadingScreen;
@@ -24,6 +25,7 @@ namespace Multiplayer
         [SerializeField] private TextMeshProUGUI roomNameText;
         [SerializeField] private TextMeshProUGUI playerNameLabel;
         [SerializeField] private Transform playerNameLabelsContent;
+        [SerializeField] private GameObject startGameButton;
         private readonly List<TextMeshProUGUI> allPlayerNames = new List<TextMeshProUGUI>();
 
         [Header("Error screen")] 
@@ -57,6 +59,10 @@ namespace Multiplayer
             CloseMenus();
             ShowLoadingMenu("Connecting to network...");
             PhotonNetwork.ConnectUsingSettings();
+            
+#if UNITY_EDITOR
+            testRoomButton.SetActive(true);
+#endif
         }
 
         private void CloseMenus()
@@ -149,6 +155,7 @@ namespace Multiplayer
             roomScreen.SetActive(true);
             roomNameText.text = PhotonNetwork.CurrentRoom.Name;
             ListAllPlayers();
+            startGameButton.SetActive(PhotonNetwork.IsMasterClient);
         }
 
         private void ListAllPlayers()
@@ -249,6 +256,20 @@ namespace Multiplayer
         public void StartGame()
         {
             PhotonNetwork.LoadLevel(levelToPlay);
+        }
+
+        public override void OnMasterClientSwitched(Player newMasterClient)
+        {
+            startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        }
+
+        public void QuickJoin()
+        {
+            var roomOptions = new RoomOptions {MaxPlayers = 2};
+            
+            PhotonNetwork.CreateRoom("Test", roomOptions);
+            CloseMenus();
+            ShowLoadingMenu("Creating test room");
         }
         
         public void QuitGame()
