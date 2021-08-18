@@ -32,12 +32,12 @@ namespace Multiplayer
             if (PhotonNetwork.IsMasterClient)
             {
                 PhotonNetwork.Instantiate(playerPrefab.name, spawnPoints[0].position, spawnPoints[0].rotation);
-                PhotonNetwork.Instantiate(gunPrefab.name, gunPoints[0].position, spawnPoints[0].rotation);
+                //PhotonNetwork.Instantiate(gunPrefab.name, gunPoints[0].position, gunPoints[0].rotation);
             }
             else
             {
                 PhotonNetwork.Instantiate(playerPrefab.name, spawnPoints[1].position, spawnPoints[1].rotation);
-                PhotonNetwork.Instantiate(gunPrefab.name, gunPoints[1].position, spawnPoints[0].rotation);
+                //PhotonNetwork.Instantiate(gunPrefab.name, gunPoints[1].position,  gunPoints[0].rotation);
             }
         }
     }

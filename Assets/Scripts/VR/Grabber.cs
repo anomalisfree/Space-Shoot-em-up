@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace VR
@@ -8,6 +10,8 @@ namespace VR
         [SerializeField] private PlayerHandAnimationController playerHandAnimationController;
         [SerializeField] private Transform grabPivot;
         [SerializeField] private SkinnedMeshRenderer handMesh;
+        [SerializeField] private PhotonView photonView;
+        
 
         private const float HoldDetectedValue = 0.5f;
 
@@ -17,13 +21,15 @@ namespace VR
 
         private void Start()
         {
-            playerHandAnimationController.FlexChanged += FlexChanged;
+            playerHandAnimationController.FlexChanged += FlexChanged; 
         }
 
         private void FlexChanged(float value)
         {
             isHolding = value > HoldDetectedValue;
         }
+        
+        
 
         private void Update()
         {
@@ -45,11 +51,16 @@ namespace VR
                 
                 var newCollider = grabPivot.gameObject.AddComponent<BoxCollider>();
                 var oldCollider = currentGrabbableObject.Grab(grabPivot, gameObject.layer,
-                    playerHandAnimationController.GetDeviceType(), out var isGun);
+                    playerHandAnimationController.GetDeviceType(), playerHandAnimationController, out var isGun);
                 newCollider.size = oldCollider.size;
                 newCollider.center = oldCollider.center;
                 handMesh.enabled = !isGun;
-                
+
+                if (photonView != null)
+                {
+                    photonView.RPC("EnableDisableHandMesh", RpcTarget.All, !isGun);
+                }
+
                 playerHandAnimationController.SetPose(1);
             }
             else
@@ -58,6 +69,12 @@ namespace VR
                 
                 currentGrabbableObject.Throw(playerHandAnimationController.GetState());
                 handMesh.enabled = true;
+
+                if (photonView != null)
+                {
+                    photonView.RPC("EnableDisableHandMesh", RpcTarget.All, true);
+                }
+
                 currentGrabbableObject = null;
                 Destroy(grabPivot.gameObject.GetComponent<BoxCollider>());
                 playerHandAnimationController.SetPose(0);
@@ -82,6 +99,11 @@ namespace VR
             {
                 grabbableObjects.Remove(grabbableObject);
             }
+        }
+        
+        [PunRPC]
+        public void EnableDisableHandMesh(bool isActive){
+            handMesh.enabled = isActive;
         }
     }
 }

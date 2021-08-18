@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.XR.Oculus;
@@ -45,6 +46,7 @@ namespace VR
 
         private InputDevice device;
         private Transform parent;
+        private bool vibrateNow;
 
         private void Start()
         {
@@ -129,6 +131,8 @@ namespace VR
 
         private void UpdateVibration()
         {
+            if (vibrateNow) return;
+            
             var vibrationForce = Vector3.Distance(transform.position, parent.position) * vibrationMultiplier;
 
             if (vibrationForce > vibrationMax)
@@ -165,6 +169,20 @@ namespace VR
         public XRNode GetDeviceType()
         {
             return deviceType;
+        }
+
+        public void Vibrate(float amplitude, float time)
+        {
+            vibrateNow = true;
+            device.SendHapticImpulse(0, amplitude, time);
+            StopAllCoroutines();
+            StartCoroutine(VibrateTimer(time));
+        }
+
+        private IEnumerator VibrateTimer(float time)
+        {
+            yield return new WaitForSeconds(time);
+            vibrateNow = false;
         }
     }
 }
