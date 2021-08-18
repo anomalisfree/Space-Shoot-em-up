@@ -233,17 +233,10 @@ namespace Multiplayer
             }
             
             allRoomButtons.Clear();
-<<<<<<< Updated upstream
 
             foreach (var info in roomInfos)
             {
-                if (info.PlayerCount != info.MaxPlayers && info.RemovedFromList)
-=======
-            
-            foreach (var info in roomInfos)
-            {
                 if (info.PlayerCount != info.MaxPlayers && !info.RemovedFromList)
->>>>>>> Stashed changes
                 {
                     var newButton = Instantiate(roomButton,roomButtonsContent);
                     newButton.SetButtonDetails(info);
