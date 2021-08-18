@@ -161,5 +161,13 @@ namespace VR
         {
             return parent;
         }
+<<<<<<< Updated upstream
+=======
+
+        public XRNode GetDeviceType()
+        {
+            return deviceType;
+        }
+>>>>>>> Stashed changes
     }
 }

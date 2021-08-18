@@ -7,6 +7,10 @@ namespace VR
     {
         [SerializeField] private PlayerHandAnimationController playerHandAnimationController;
         [SerializeField] private Transform grabPivot;
+<<<<<<< Updated upstream
+=======
+        [SerializeField] private SkinnedMeshRenderer handMesh;
+>>>>>>> Stashed changes
 
         private const float HoldDetectedValue = 0.5f;
 
@@ -43,6 +47,7 @@ namespace VR
                 }
 
                 //TODO: Find the most versatile method for all types of collider. Make it possible to intercept objects with your hands. 
+<<<<<<< Updated upstream
                 var currentGrabbableObjectTransform = currentGrabbableObject.transform;
                 grabPivot.position = currentGrabbableObjectTransform.position;
                 grabPivot.rotation = currentGrabbableObjectTransform.rotation;
@@ -52,13 +57,32 @@ namespace VR
                 newCollider.size = oldCollider.size;
                 newCollider.center = oldCollider.center;
                 
+=======
+                // var currentGrabbableObjectTransform = currentGrabbableObject.transform;
+                // grabPivot.position = currentGrabbableObjectTransform.position;
+                // grabPivot.rotation = currentGrabbableObjectTransform.rotation;
+
+                var newCollider = grabPivot.gameObject.AddComponent<BoxCollider>();
+                var oldCollider = currentGrabbableObject.Grab(grabPivot, gameObject.layer,
+                    playerHandAnimationController.GetDeviceType(), out var isGun);
+                newCollider.size = oldCollider.size;
+                newCollider.center = oldCollider.center;
+                handMesh.enabled = !isGun;
+
+>>>>>>> Stashed changes
                 playerHandAnimationController.SetPose(1);
             }
             else
             {
                 if (currentGrabbableObject == null) return;
+<<<<<<< Updated upstream
                 
                 currentGrabbableObject.Throw(playerHandAnimationController.GetState());
+=======
+
+                currentGrabbableObject.Throw(playerHandAnimationController.GetState());
+                handMesh.enabled = true;
+>>>>>>> Stashed changes
                 currentGrabbableObject = null;
                 Destroy(grabPivot.gameObject.GetComponent<BoxCollider>());
                 playerHandAnimationController.SetPose(0);

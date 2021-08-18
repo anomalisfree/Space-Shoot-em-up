@@ -1060,6 +1060,14 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
+=======
+    - target: {fileID: 5800517648586530612, guid: d78e84a5b2f2630418e541be56e83188,
+        type: 3}
+      propertyPath: m_UseRelativeTransform
+      value: 0
+      objectReference: {fileID: 0}
+>>>>>>> Stashed changes
     - target: {fileID: 5800517648717858252, guid: d78e84a5b2f2630418e541be56e83188,
         type: 3}
       propertyPath: m_Name
