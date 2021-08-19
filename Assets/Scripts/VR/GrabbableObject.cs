@@ -24,6 +24,7 @@ namespace VR
         private const float WaitingForChangingLayer = 0.2f;
 
         private Transform defaultParent;
+        private Transform currentParent;
         private LayerMask defaultLayerMask;
 
         public Action<PlayerHandAnimationController> IsThrown;
@@ -32,8 +33,9 @@ namespace VR
 
         private void Start()
         {
-            defaultParent = transform.parent;
+            defaultParent = currentParent = transform.parent;
             defaultLayerMask = gameObject.layer;
+            rigidbody.isKinematic = !Equals(photonView.Owner, PhotonNetwork.LocalPlayer);
         }
 
         public BoxCollider Grab(Transform parent, LayerMask layerMask, XRNode device,
@@ -73,10 +75,9 @@ namespace VR
                     photonView.TransferOwnership(PhotonNetwork.LocalPlayer);
             }
 
-            transform.parent = parent;
+            currentParent = transform.parent = parent;
             gameObject.layer = layerMask;
-
-            rigidbody.isKinematic = true;
+            
             IsGrabbed?.Invoke(playerHandController);
             return collider;
         }
@@ -93,10 +94,7 @@ namespace VR
                 photonView.RPC("ShowHideRightHand", RpcTarget.AllBuffered, false);
             }
 
-            transform.parent = defaultParent;
-
-            if (Equals(photonView.Owner, PhotonNetwork.LocalPlayer))
-                rigidbody.isKinematic = false;
+            currentParent = transform.parent = defaultParent;
 
             state.TryGetVelocity(out var velocity);
             rigidbody.velocity = velocity;
@@ -119,21 +117,23 @@ namespace VR
             if (rightHand != null && rightHand.activeSelf && Equals(photonView.Owner, PhotonNetwork.LocalPlayer))
             {
                 Transform transformThis;
-                (transformThis = transform).localPosition =
-                    Vector3.MoveTowards(transformThis.localPosition, Vector3.up * 0.045f, Time.deltaTime * 50);
+                (transformThis = transform).position =
+                    Vector3.MoveTowards(transformThis.position, currentParent.position + Vector3.up * 0.045f,
+                        Time.deltaTime * 50);
 
-                transform.localRotation = Quaternion.Lerp(transformThis.localRotation,
-                    Quaternion.Euler(Vector3.forward * 90), Time.deltaTime * 100);
+                transform.rotation = Quaternion.Lerp(transformThis.rotation,
+                    Quaternion.Euler(currentParent.rotation.eulerAngles + Vector3.forward * 90), Time.deltaTime * 100);
             }
 
             if (leftHand != null && leftHand.activeSelf && Equals(photonView.Owner, PhotonNetwork.LocalPlayer))
             {
                 Transform transformThis;
-                (transformThis = transform).localPosition =
-                    Vector3.MoveTowards(transformThis.localPosition, Vector3.up * 0.045f, Time.deltaTime * 50);
+                (transformThis = transform).position =
+                    Vector3.MoveTowards(transformThis.position, currentParent.position + Vector3.up * 0.045f,
+                        Time.deltaTime * 50);
 
-                transform.localRotation = Quaternion.Lerp(transformThis.localRotation,
-                    Quaternion.Euler(Vector3.back * 90), Time.deltaTime * 100);
+                transform.rotation = Quaternion.Lerp(transformThis.rotation,
+                    Quaternion.Euler(currentParent.rotation.eulerAngles + Vector3.back * 90), Time.deltaTime * 100);
             }
         }
 
@@ -141,12 +141,22 @@ namespace VR
         public void ShowHideLeftHand(bool isActive)
         {
             leftHand.SetActive(isActive);
+
+            if (!isActive)
+                rigidbody.isKinematic = !Equals(photonView.Owner, PhotonNetwork.LocalPlayer);
+            else
+                rigidbody.isKinematic = true;
         }
 
         [PunRPC]
         public void ShowHideRightHand(bool isActive)
         {
             rightHand.SetActive(isActive);
+
+            if (!isActive)
+                rigidbody.isKinematic = !Equals(photonView.Owner, PhotonNetwork.LocalPlayer);
+            else
+                rigidbody.isKinematic = true;
         }
     }
 }
