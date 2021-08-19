@@ -29,7 +29,7 @@ namespace VR.Guns
         {
             var transformThis = transform;
             PhotonNetwork.Instantiate(explosion.name, transformThis.position, transformThis.rotation);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

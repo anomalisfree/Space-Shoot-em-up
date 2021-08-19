@@ -11,14 +11,17 @@ namespace VR.Guns
         [SerializeField] private GameObject bullet;
         [SerializeField] private Transform muzzleFlashPoint;
         [SerializeField] private Animator animator;
+        [SerializeField] private PhotonView photonView;
 
         [Header("Vibration")] [SerializeField] [Range(0f, 1f)]
         private float vibrationAmplitude;
+
         [SerializeField] private float vibrationTime;
 
         private float oldPinchParam;
         private PlayerHandAnimationController playerController;
         private static readonly int ShootTrigger = Animator.StringToHash("shoot");
+        private bool shoot;
 
         private void Start()
         {
@@ -54,7 +57,14 @@ namespace VR.Guns
             PhotonNetwork.Instantiate(muzzleFlash.name, position, rotation);
             PhotonNetwork.Instantiate(bullet.name, position, rotation);
             playerController.Vibrate(vibrationAmplitude, vibrationTime);
-            animator.SetTrigger(ShootTrigger);
+            shoot = !shoot;
+            photonView.RPC("ShootAnimation", RpcTarget.All, true);
+        }
+
+        [PunRPC]
+        public void ShootAnimation(bool param)
+        {
+            animator.SetBool(ShootTrigger, shoot);
         }
     }
 }

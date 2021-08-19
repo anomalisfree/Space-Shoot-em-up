@@ -10,7 +10,9 @@ namespace ScrollShooter
         [SerializeField] private float destroyDistanceWidth = 5;
         [SerializeField] private GameObject explosion;
         [SerializeField] private MeshRenderer meshRenderer;
-        [SerializeField] private new ParticleSystem particleSystem;
+#pragma warning disable 108,114
+        [SerializeField] private ParticleSystem particleSystem;
+#pragma warning restore 108,114
         private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
 
         public void Initialize(Color color)

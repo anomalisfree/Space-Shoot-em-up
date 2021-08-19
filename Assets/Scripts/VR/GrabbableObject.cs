@@ -8,8 +8,10 @@ namespace VR
 {
     public class GrabbableObject : MonoBehaviour
     {
-        [SerializeField] private new Rigidbody rigidbody;
-        [SerializeField] private new BoxCollider collider;
+#pragma warning disable 108,114
+        [SerializeField] private Rigidbody rigidbody;
+        [SerializeField] private BoxCollider collider;
+#pragma warning restore 108,114
 
         [Header("use if gun")] [SerializeField]
         private GameObject leftHand;
@@ -26,7 +28,7 @@ namespace VR
 
         public Action<PlayerHandAnimationController> IsThrown;
         public Action<PlayerHandAnimationController> IsGrabbed;
-        
+
 
         private void Start()
         {
@@ -34,7 +36,8 @@ namespace VR
             defaultLayerMask = gameObject.layer;
         }
 
-        public BoxCollider Grab(Transform parent, LayerMask layerMask, XRNode device, PlayerHandAnimationController playerHandAnimationController, out bool isGun)
+        public BoxCollider Grab(Transform parent, LayerMask layerMask, XRNode device,
+            PlayerHandAnimationController playerHandAnimationController, out bool isGun)
         {
             StopAllCoroutines();
             isGun = false;
@@ -46,7 +49,7 @@ namespace VR
                 {
                     if (leftHand != null)
                     {
-                        leftHand.SetActive(true);
+                        photonView.RPC("ShowHideLeftHand", RpcTarget.AllBuffered, true);
                         isGun = true;
                     }
 
@@ -56,7 +59,7 @@ namespace VR
                 {
                     if (rightHand != null)
                     {
-                        rightHand.SetActive(true);
+                        photonView.RPC("ShowHideRightHand", RpcTarget.AllBuffered, true);
                         isGun = true;
                     }
 
@@ -82,17 +85,18 @@ namespace VR
         {
             if (leftHand != null)
             {
-                leftHand.SetActive(false);
+                photonView.RPC("ShowHideLeftHand", RpcTarget.AllBuffered, false);
             }
 
             if (rightHand != null)
             {
-                rightHand.SetActive(false);
+                photonView.RPC("ShowHideRightHand", RpcTarget.AllBuffered, false);
             }
 
             transform.parent = defaultParent;
 
-            rigidbody.isKinematic = false;
+            if (Equals(photonView.Owner, PhotonNetwork.LocalPlayer))
+                rigidbody.isKinematic = false;
 
             state.TryGetVelocity(out var velocity);
             rigidbody.velocity = velocity;
@@ -112,7 +116,7 @@ namespace VR
 
         private void Update()
         {
-            if (rightHand != null && rightHand.activeSelf)
+            if (rightHand != null && rightHand.activeSelf && Equals(photonView.Owner, PhotonNetwork.LocalPlayer))
             {
                 Transform transformThis;
                 (transformThis = transform).localPosition =
@@ -122,7 +126,7 @@ namespace VR
                     Quaternion.Euler(Vector3.forward * 90), Time.deltaTime * 100);
             }
 
-            if (leftHand != null && leftHand.activeSelf)
+            if (leftHand != null && leftHand.activeSelf && Equals(photonView.Owner, PhotonNetwork.LocalPlayer))
             {
                 Transform transformThis;
                 (transformThis = transform).localPosition =
@@ -131,6 +135,18 @@ namespace VR
                 transform.localRotation = Quaternion.Lerp(transformThis.localRotation,
                     Quaternion.Euler(Vector3.back * 90), Time.deltaTime * 100);
             }
+        }
+
+        [PunRPC]
+        public void ShowHideLeftHand(bool isActive)
+        {
+            leftHand.SetActive(isActive);
+        }
+
+        [PunRPC]
+        public void ShowHideRightHand(bool isActive)
+        {
+            rightHand.SetActive(isActive);
         }
     }
 }

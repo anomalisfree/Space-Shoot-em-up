@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Multiplayer;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace VR
 {
@@ -10,6 +12,7 @@ namespace VR
         [SerializeField] private Transform grabPivot;
         [SerializeField] private SkinnedMeshRenderer handMesh;
         [SerializeField] private PhotonView photonView;
+        [SerializeField] private PlayerMultiplayerController playerMultiplayerController;
         
 
         private const float HoldDetectedValue = 0.5f;
@@ -55,9 +58,13 @@ namespace VR
                 newCollider.center = oldCollider.center;
                 handMesh.enabled = !isGun;
 
-                if (photonView != null)
+                if (playerMultiplayerController != null)
                 {
-                    photonView.RPC("EnableDisableHandMesh", RpcTarget.All, !isGun);
+                    if(playerHandAnimationController.GetDeviceType() == XRNode.RightHand)
+                        photonView.RPC("ShowHideRightHand", RpcTarget.AllBuffered, !isGun);
+                    
+                    if(playerHandAnimationController.GetDeviceType() == XRNode.LeftHand)
+                        photonView.RPC("ShowHideLeftHand", RpcTarget.AllBuffered, !isGun);
                 }
 
                 playerHandAnimationController.SetPose(1);
@@ -69,9 +76,13 @@ namespace VR
                 currentGrabbableObject.Throw(playerHandAnimationController.GetState());
                 handMesh.enabled = true;
 
-                if (photonView != null)
+                if (playerMultiplayerController != null)
                 {
-                    photonView.RPC("EnableDisableHandMesh", RpcTarget.All, true);
+                    if(playerHandAnimationController.GetDeviceType() == XRNode.RightHand)
+                        photonView.RPC("ShowHideRightHand", RpcTarget.AllBuffered, true);
+                    
+                    if(playerHandAnimationController.GetDeviceType() == XRNode.LeftHand)
+                        photonView.RPC("ShowHideLeftHand", RpcTarget.AllBuffered, true);
                 }
 
                 currentGrabbableObject = null;
@@ -98,11 +109,6 @@ namespace VR
             {
                 grabbableObjects.Remove(grabbableObject);
             }
-        }
-        
-        [PunRPC]
-        public void EnableDisableHandMesh(bool isActive){
-            handMesh.enabled = isActive;
         }
     }
 }

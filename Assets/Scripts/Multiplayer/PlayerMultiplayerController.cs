@@ -11,22 +11,26 @@ namespace Multiplayer
     {
         [SerializeField] private GameObject head;
 
-        [SerializeField] private new Camera camera;
+#pragma warning disable 108,114
+        [SerializeField] private Camera camera;
+#pragma warning restore 108,114
         [SerializeField] private AudioListener audioListener;
 
         [SerializeField] private CameraOffset cameraOffset;
-        
+
         [SerializeField] private List<TrackedPoseDriver> trackedPoseDrivers = new List<TrackedPoseDriver>();
 
-        [SerializeField]
-        private List<PlayerHandAnimationController> playerHandAnimationControllers =
+        [SerializeField] private List<PlayerHandAnimationController> playerHandAnimationControllers =
             new List<PlayerHandAnimationController>();
 
         [SerializeField] private List<Grabber> grabbers = new List<Grabber>();
         [SerializeField] private List<LeverGrabber> leverGrabbers = new List<LeverGrabber>();
         [SerializeField] private List<Rigidbody> rigidbodies = new List<Rigidbody>();
-        
-        
+
+        [SerializeField] private GameObject leftHand;
+        [SerializeField] private GameObject rightHand;
+
+
         private void Start()
         {
             if (photonView.IsMine)
@@ -67,18 +71,18 @@ namespace Multiplayer
             else
             {
                 head.SetActive(true);
-                
+
                 cameraOffset.enabled = false;
-                
+
                 camera.enabled = false;
 
                 audioListener.enabled = false;
-                
+
                 foreach (var trackedPoseDriver in trackedPoseDrivers)
                 {
                     trackedPoseDriver.enabled = false;
                 }
-                
+
                 foreach (var playerHandAnimationController in playerHandAnimationControllers)
                 {
                     playerHandAnimationController.enabled = false;
@@ -93,12 +97,26 @@ namespace Multiplayer
                 {
                     leverGrabber.enabled = false;
                 }
-                
+
                 foreach (var rb in rigidbodies)
                 {
                     rb.isKinematic = true;
                 }
             }
+        }
+
+        [PunRPC]
+        public void ShowHideLeftHand(bool isActive)
+        {
+            if (!photonView.IsMine)
+                leftHand.SetActive(isActive);
+        }
+
+        [PunRPC]
+        public void ShowHideRightHand(bool isActive)
+        {
+            if (!photonView.IsMine)
+                rightHand.SetActive(isActive);
         }
     }
 }

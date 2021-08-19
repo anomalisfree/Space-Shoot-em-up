@@ -41,6 +41,11 @@ MonoBehaviour:
   - RespawnSpaceship
   - EnableDisableObject
   - EnableDisableHandMesh
+  - ShowHideLeftHand
+  - ShowHideRightHand
+  - ShootAnimation
+  - ShowHideGameObject
+  - SetRigidbodyKinematic
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
