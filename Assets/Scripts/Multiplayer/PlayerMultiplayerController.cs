@@ -1,5 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using Enemies;
 using Photon.Pun;
+using UnityEditor;
 using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
@@ -30,6 +33,20 @@ namespace Multiplayer
         [SerializeField] private GameObject leftHand;
         [SerializeField] private GameObject rightHand;
 
+        
+
+        // [SerializeField] private GameObject enemy;
+        // [SerializeField] private Transform face;
+        //
+        // private IEnumerator EnemyCreate()
+        // {
+        //     while (true)
+        //     {
+        //         yield return new WaitForSeconds(Random.Range(5f, 10f));
+        //         PhotonNetwork.Instantiate(enemy.name, new Vector3(Random.Range(-10f, 10f),0, 20), Quaternion.identity).GetComponent<SpiderRobotController>().SetShootTarget(face);
+        //     }
+        // }
+      
 
         private void Start()
         {
@@ -67,6 +84,8 @@ namespace Multiplayer
                 {
                     rb.isKinematic = false;
                 }
+
+                //StartCoroutine(EnemyCreate());
             }
             else
             {

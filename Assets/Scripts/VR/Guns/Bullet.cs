@@ -9,6 +9,7 @@ namespace VR.Guns
         [SerializeField] private float bulletSpeed;
         [SerializeField] private float lifeTime;
         [SerializeField] private GameObject explosion;
+        [SerializeField] private float damage;
         
 
         private void Start()
@@ -25,10 +26,14 @@ namespace VR.Guns
             }
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void OnCollisionEnter(Collision collision)
         {
-            var transformThis = transform;
-            PhotonNetwork.Instantiate(explosion.name, transformThis.position, transformThis.rotation);
+            if (collision.gameObject.GetComponent<Health>() != null)
+            {
+                collision.gameObject.GetComponent<Health>().GetDamage(damage);
+            }
+            
+            PhotonNetwork.Instantiate(explosion.name, collision.contacts[0].point, transform.rotation);
             PhotonNetwork.Destroy(gameObject);
         }
     }

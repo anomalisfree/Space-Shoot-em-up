@@ -90,7 +90,12 @@ namespace VR
             pose = newPose;
             animator.SetInteger(animParamIndexPose, pose);
         }
-
+        
+        public bool GetLocomotionButtonPressed()
+        {
+            device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out var buttonPressed);
+            return buttonPressed;
+        }
 
         private void UpdateAnimStates()
         {
