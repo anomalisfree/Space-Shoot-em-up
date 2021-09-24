@@ -5,6 +5,7 @@ namespace VR
     public class Locomotion : MonoBehaviour
     {
         [SerializeField] private Transform playerTransform;
+        [SerializeField] private Transform headTransform;
         [SerializeField] private PlayerHandAnimationController playerHandAnimationController;
         [SerializeField] private float maxLocomotionDistance;
         [SerializeField] private LineRenderer lineRenderer;
@@ -34,7 +35,7 @@ namespace VR
                         locomotionPoint.Hide();
                     }
                 }
-                
+
                 var fwd = transform.TransformDirection(Vector3.forward);
 
                 if (Physics.Raycast(transform.position, fwd, out var hit, 10, layerMask))
@@ -42,9 +43,9 @@ namespace VR
                     lineRenderer.enabled = true;
                     lineRenderer.SetPosition(0, transform.position);
                     lineRenderer.SetPosition(1, hit.point);
-                        
+
                     var lp = hit.collider.GetComponent<LocomotionPoint>();
-                        
+
                     if (currentLocomotionPoint != null && lp != currentLocomotionPoint)
                     {
                         currentLocomotionPoint.SetUnActive();
@@ -56,7 +57,7 @@ namespace VR
                 else
                 {
                     lineRenderer.enabled = false;
-                        
+
                     if (currentLocomotionPoint != null)
                     {
                         currentLocomotionPoint.SetUnActive();
@@ -71,14 +72,17 @@ namespace VR
                     locomotionPoint.Hide();
                     locomotionPoint.SetUnActive();
                 }
-                
+
                 lineRenderer.enabled = false;
 
                 if (currentLocomotionPoint != null)
                 {
-                    playerTransform.position = currentLocomotionPoint.GetPosition();
+                    var headLocalPosition = headTransform.localPosition;
+                    playerTransform.position = currentLocomotionPoint.GetPosition() -
+                                               new Vector3(headLocalPosition.x, 0,
+                                                   headLocalPosition.z);
                 }
-                
+
                 currentLocomotionPoint = null;
             }
         }

@@ -13,6 +13,7 @@ namespace VR
         [SerializeField] private SkinnedMeshRenderer handMesh;
         [SerializeField] private PhotonView photonView;
         [SerializeField] private PlayerMultiplayerController playerMultiplayerController;
+        [SerializeField] private Transform playerTransform;
         
 
         private const float HoldDetectedValue = 0.5f;
@@ -30,8 +31,6 @@ namespace VR
         {
             isHolding = value > HoldDetectedValue;
         }
-        
-        
 
         private void Update()
         {
@@ -73,7 +72,7 @@ namespace VR
             {
                 if (currentGrabbableObject == null) return;
                 
-                currentGrabbableObject.Throw(playerHandAnimationController.GetState());
+                currentGrabbableObject.Throw(playerHandAnimationController.GetState(), playerTransform);
                 handMesh.enabled = true;
 
                 if (playerMultiplayerController != null)

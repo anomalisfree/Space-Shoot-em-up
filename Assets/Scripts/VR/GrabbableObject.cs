@@ -82,7 +82,7 @@ namespace VR
             return collider;
         }
 
-        public void Throw(XRNodeState state)
+        public void Throw(XRNodeState state, Transform playerTransform)
         {
             if (leftHand != null)
             {
@@ -97,7 +97,7 @@ namespace VR
             currentParent = transform.parent = defaultParent;
 
             state.TryGetVelocity(out var velocity);
-            rigidbody.velocity = velocity;
+            rigidbody.velocity = Quaternion.LookRotation(playerTransform.forward) * velocity;
 
             state.TryGetAngularVelocity(out var angularVelocity);
             rigidbody.angularVelocity = angularVelocity;

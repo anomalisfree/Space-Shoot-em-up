@@ -97,6 +97,12 @@ namespace VR
             return buttonPressed;
         }
 
+        public Vector2 GetStickPos()
+        {
+            device.TryGetFeatureValue(CommonUsages.primary2DAxis, out var stickPose);
+            return stickPose;
+        }
+
         private void UpdateAnimStates()
         {
             device.TryGetFeatureValue(CommonUsages.grip, out flex);

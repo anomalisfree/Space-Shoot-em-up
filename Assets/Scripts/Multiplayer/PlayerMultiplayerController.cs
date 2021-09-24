@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Enemies;
 using Photon.Pun;
-using UnityEditor;
 using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
@@ -29,6 +26,8 @@ namespace Multiplayer
         [SerializeField] private List<Grabber> grabbers = new List<Grabber>();
         [SerializeField] private List<LeverGrabber> leverGrabbers = new List<LeverGrabber>();
         [SerializeField] private List<Rigidbody> rigidbodies = new List<Rigidbody>();
+
+        [SerializeField] private List<GameObject> gameObjectsToHide;
 
         [SerializeField] private GameObject leftHand;
         [SerializeField] private GameObject rightHand;
@@ -120,6 +119,11 @@ namespace Multiplayer
                 foreach (var rb in rigidbodies)
                 {
                     rb.isKinematic = true;
+                }
+
+                foreach (var go in gameObjectsToHide)
+                {
+                    go.SetActive(false);
                 }
             }
         }
