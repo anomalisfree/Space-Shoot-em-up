@@ -1193,6 +1193,7 @@ GameObject:
   - component: {fileID: 2633426877950840222}
   - component: {fileID: 4319538113040860213}
   - component: {fileID: 1515084263884236059}
+  - component: {fileID: 8096345947004466308}
   m_Layer: 8
   m_Name: wallDetector
   m_TagString: Untagged
@@ -1258,6 +1259,19 @@ FixedJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &8096345947004466308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045854459652922922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1155775a2dbb25f47a626f127a503882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  postProcessVolume: {fileID: 8260401068965815608}
 --- !u!1 &9196983182985540283
 GameObject:
   m_ObjectHideFlags: 0
