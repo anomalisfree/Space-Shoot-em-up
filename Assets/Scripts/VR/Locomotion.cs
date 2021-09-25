@@ -10,6 +10,7 @@ namespace VR
         [SerializeField] private float maxLocomotionDistance;
         [SerializeField] private LineRenderer lineRenderer;
         [SerializeField] private LayerMask layerMask;
+        [SerializeField] private WallDetector wallDetector;
 
         private LocomotionPoint[] locomotionPoints;
         private LocomotionPoint currentLocomotionPoint;
@@ -81,6 +82,7 @@ namespace VR
                     playerTransform.position = currentLocomotionPoint.GetPosition() -
                                                new Vector3(headLocalPosition.x, 0,
                                                    headLocalPosition.z);
+                    wallDetector.SetScreenDark();
                 }
 
                 currentLocomotionPoint = null;

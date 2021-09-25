@@ -1324,6 +1324,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 512
+  wallDetector: {fileID: 8096345947004466308}
 --- !u!120 &6489466746942134008
 LineRenderer:
   m_ObjectHideFlags: 0
