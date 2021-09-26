@@ -47,13 +47,23 @@ namespace VR
 
                     var lp = hit.collider.GetComponent<LocomotionPoint>();
 
-                    if (currentLocomotionPoint != null && lp != currentLocomotionPoint)
+                    if (lp != null)
                     {
-                        currentLocomotionPoint.SetUnActive();
-                    }
+                        if (currentLocomotionPoint != null && lp != currentLocomotionPoint)
+                        {
+                            currentLocomotionPoint.SetUnActive();
+                        }
 
-                    currentLocomotionPoint = lp;
-                    currentLocomotionPoint.SetActive();
+                        currentLocomotionPoint = lp;
+                        currentLocomotionPoint.SetActive();
+                    }
+                    else
+                    {
+                        if (currentLocomotionPoint != null)
+                        {
+                            currentLocomotionPoint.SetUnActive();
+                        }
+                    }
                 }
                 else
                 {
@@ -79,9 +89,9 @@ namespace VR
                 if (currentLocomotionPoint != null)
                 {
                     var headLocalPosition = headTransform.localPosition;
-                    playerTransform.position = currentLocomotionPoint.GetPosition() -
-                                               new Vector3(headLocalPosition.x, 0,
-                                                   headLocalPosition.z);
+                    var moveDirection = Quaternion.LookRotation(playerTransform.forward) *
+                                        new Vector3(headLocalPosition.x, 0, headLocalPosition.z);
+                    playerTransform.position = currentLocomotionPoint.GetPosition() - moveDirection;
                     wallDetector.SetScreenDark();
                 }
 

@@ -9,7 +9,7 @@ namespace VR
         private ColorGrading colorGradingLayer;
 
         private const float DistanceScaler = 20;
-        private const float VisionRecoveryRate = 10;
+        private const float VisionRecoveryRate = 5;
 
         private void Start()
         {

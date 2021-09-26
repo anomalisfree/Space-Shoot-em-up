@@ -8,6 +8,7 @@ namespace VR
         [SerializeField] private Transform playerTransform;
         [SerializeField] private PlayerHandAnimationController playerHandAnimationController;
         [SerializeField] private float angle;
+        [SerializeField] private Transform headTransform;
 
         private bool isTurned;
 
@@ -16,13 +17,13 @@ namespace VR
             if (!isTurned && playerHandAnimationController.GetStickPos().x > 0.85f)
             {
                 isTurned = true;
-                playerTransform.Rotate(Vector3.up, angle);
+                playerTransform.RotateAround(headTransform.position, Vector3.up, angle);
             }
             
             if (!isTurned && playerHandAnimationController.GetStickPos().x < -0.85f)
             {
                 isTurned = true;
-                playerTransform.Rotate(Vector3.up, -angle);
+                playerTransform.RotateAround(headTransform.position, Vector3.up, -angle);
             }
 
             if (isTurned && Mathf.Abs(playerHandAnimationController.GetStickPos().x) < 0.1f)

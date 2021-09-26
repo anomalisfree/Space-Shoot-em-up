@@ -694,6 +694,7 @@ MonoBehaviour:
   playerTransform: {fileID: 8260401069912944100}
   playerHandAnimationController: {fileID: 6372395216226660648}
   angle: 45
+  headTransform: {fileID: 8260401070044280607}
 --- !u!1 &8260401068761881183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,7 +1324,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 6489466746942134008}
   layerMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
   wallDetector: {fileID: 8096345947004466308}
 --- !u!120 &6489466746942134008
 LineRenderer:
