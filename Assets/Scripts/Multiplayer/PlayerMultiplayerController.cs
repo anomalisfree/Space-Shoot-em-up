@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEditor.XR.LegacyInputHelpers;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SpatialTracking;
 using VR;
 
@@ -31,6 +32,9 @@ namespace Multiplayer
 
         [SerializeField] private GameObject leftHand;
         [SerializeField] private GameObject rightHand;
+
+        [SerializeField] private PostProcessVolume postProcessVolume;
+        [SerializeField] private PostProcessLayer postProcessLayer;
 
         
 
@@ -125,6 +129,9 @@ namespace Multiplayer
                 {
                     go.SetActive(false);
                 }
+
+                postProcessLayer.enabled = false;
+                postProcessVolume.enabled = false;
             }
         }
 

@@ -951,6 +951,8 @@ MonoBehaviour:
   - {fileID: 7248673225334900292}
   leftHand: {fileID: 4480012098761270790}
   rightHand: {fileID: 6372395215924042170}
+  postProcessVolume: {fileID: 8260401068965815608}
+  postProcessLayer: {fileID: 8260401068965815615}
 --- !u!1 &8260401070040459543
 GameObject:
   m_ObjectHideFlags: 0
