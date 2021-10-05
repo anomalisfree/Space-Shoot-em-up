@@ -264,6 +264,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -272,7 +273,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc8c9e8a516866042b69a6919d0ab885, type: 2}
+  - {fileID: 2100000, guid: c876d5f344c559f40a580a112f54ae2a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1376,6 +1377,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHandAnimationController: {fileID: 5516597579797875563}
   grabPivot: {fileID: 8174957831999311037}
+  handMesh: {fileID: 0}
+  photonView: {fileID: 0}
+  playerMultiplayerController: {fileID: 0}
+  playerTransform: {fileID: 0}
 --- !u!114 &6187176050117424846
 MonoBehaviour:
   m_ObjectHideFlags: 0
