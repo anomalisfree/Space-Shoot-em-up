@@ -1323,7 +1323,7 @@ MonoBehaviour:
   playerTransform: {fileID: 8260401069912944100}
   headTransform: {fileID: 8260401070044280607}
   playerHandAnimationController: {fileID: 4480012099880402931}
-  maxLocomotionDistance: 3
+  maxLocomotionDistance: 2.5
   lineRenderer: {fileID: 6489466746942134008}
   layerMask:
     serializedVersion: 2
